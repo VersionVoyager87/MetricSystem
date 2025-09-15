@@ -1,0 +1,44 @@
+@model MetricSystemApp.Models.TempModel
+@{
+    ViewData["Title"] = "Fahrenheit to Celsius Converter";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Fahrenheit to Celsius Converter</h4>
+                </div>
+                <div class="card-body">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <div asp-validation-summary="All" class="mb-0 text-danger"></div>
+                        </div>
+                    }
+
+                    <form asp-action="Fahrenheit" asp-controller="Home" method="post" novalidate>
+                        <div class="mb-3">
+                            <label asp-for="FahrenheitValue" class="form-label fw-bold"></label>
+                            <input asp-for="FahrenheitValue" class="form-control" placeholder="Enter Fahrenheit value" />
+                            <span asp-validation-for="FahrenheitValue" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Celsius Value</label>
+                            <input class="form-control" 
+                                   value="@(Model.Celsius.HasValue ? Model.Celsius.Value.ToString("0.##") : string.Empty)" 
+                                   readonly />
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">Convert</button>
+                            <a asp-action="Fahrenheit" asp-controller="Home" class="btn btn-secondary">Clear</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
